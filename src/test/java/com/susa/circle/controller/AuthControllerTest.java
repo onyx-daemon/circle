@@ -20,11 +20,14 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -38,6 +41,7 @@ import org.springframework.test.web.servlet.MockMvc;
     )
 )
 @AutoConfigureMockMvc(addFilters = false)
+@AutoConfigureJsonTesters // Add this to auto-configure Jackson/ObjectMapper
 class AuthControllerTest {
 
     @Autowired
@@ -46,7 +50,7 @@ class AuthControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
+    @Autowired
     private AuthService authService;
 
     private RegisterRequest registerRequest;
@@ -54,6 +58,22 @@ class AuthControllerTest {
     private AuthResponse authResponse;
     private UserResponse userResponse;
     private CustomUserDetails userDetails;
+
+    // Mock the AuthService bean and provide ObjectMapper
+    @TestConfiguration
+    static class TestConfig {
+
+        @Bean
+        @Primary
+        public AuthService authService() {
+            return mock(AuthService.class);
+        }
+
+        @Bean
+        public ObjectMapper objectMapper() {
+            return new ObjectMapper();
+        }
+    }
 
     @BeforeEach
     void setUp() {
