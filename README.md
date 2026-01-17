@@ -140,7 +140,7 @@ sudo systemctl restart postgresql
 
 ```bash
 # If using Git
-git clone <repository-url>
+git clone https://github.com/sunnyallana/circle.git
 cd circle
 
 # Or create project directory
@@ -681,7 +681,7 @@ For issues or questions, please contact the development team or create an issue 
 
 ## Authors
 
-- Susa - 10Pearls Intern
+- Sunny Shaban Ali (SU-S-A) - 10Pearls Java Full-Stack Intern
 
 ## Acknowledgments
 
