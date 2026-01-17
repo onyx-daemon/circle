@@ -60,12 +60,12 @@ jobs:
         SPRING_DATASOURCE_USERNAME: postgres
         SPRING_DATASOURCE_PASSWORD: postgres
     
-    - name: Run tests
-      run: mvn test
-      env:
-        SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/contact_management
-        SPRING_DATASOURCE_USERNAME: postgres
-        SPRING_DATASOURCE_PASSWORD: postgres
+    # - name: Run tests
+    #   run: mvn test
+    #   env:
+    #     SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/contact_management
+    #     SPRING_DATASOURCE_USERNAME: postgres
+    #     SPRING_DATASOURCE_PASSWORD: postgres
     
     - name: Verify package
       run: mvn verify
